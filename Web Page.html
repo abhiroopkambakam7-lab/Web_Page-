@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subscription Plans – Silver, Gold, Diamond, Platinum</title>
+  <style>
+    /* ====== Base & Theme ====== */
+    :root{
+      --bg: #0b0f1a;
+      --card: #121829;
+      --muted: #9aa4b2;
+      --text: #e8eef9;
+      --accent: #5b8cfe;
+
+      --silver: #c0c0c0;
+      --gold: #d4af37;
+      --diamond: #6cd4ff;
+      --platinum: #e5e4e2;
+    }
+    *{box-sizing: border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(91,140,254,.12), transparent 60%),
+                 radial-gradient(900px 500px at -10% 10%, rgba(108,212,255,.12), transparent 60%),
+                 var(--bg);
+    }
+    a{color:inherit}
+
+    /* ====== Layout ====== */
+    .container{
+      width:min(1100px, 92%);
+      margin-inline:auto;
+      padding:48px 0 80px;
+    }
+    header{
+      text-align:center;
+      margin-bottom:28px;
+    }
+    h1{
+      font-size:clamp(1.6rem, 2.2vw + 1rem, 2.4rem);
+      letter-spacing:.3px;
+      margin:0 0 8px;
+    }
+    .subtitle{color:var(--muted); font-size:clamp(.95rem, .3vw + .8rem,1.05rem)}
+
+    /* ====== Grid ====== */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:18px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* ====== Card ====== */
+    .card{
+      position:relative;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      overflow:hidden;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,.35);
+      border-color: rgba(255,255,255,.16);
+    }
+    .ribbon{
+      position:absolute; inset:14px auto auto 14px;
+      padding:6px 10px; font-size:.75rem; border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(8px);
+    }
+    .popular{ left:auto; right:14px; background: rgba(91,140,254,.18); border-color: rgba(91,140,254,.35); }
+
+    .tier-head{
+      padding:22px 18px 14px;
+      border-bottom:1px dashed rgba(255,255,255,.08);
+      display:flex; align-items:center; gap:10px;
+    }
+    .badge{font-size:.8rem; padding:6px 10px; border-radius:999px; border:1px solid;}
+    .silver .badge{ color:#222; background: var(--silver); border-color: #b7b7b7; }
+    .gold .badge{ color:#1b1400; background: var(--gold); border-color:#c19b2b; }
+    .diamond .badge{ color:#03222b; background: var(--diamond); border-color:#48c8ff; }
+    .platinum .badge{ color:#111; background: var(--platinum); border-color:#d6d5d2; }
+
+    .tier-title{ margin:0; font-size:1.15rem; font-weight:700; }
+
+    .price{
+      padding:18px;
+      display:flex; align-items:flex-end; gap:8px;
+    }
+    .price .amount{ font-size:2rem; font-weight:800; letter-spacing:.3px; }
+    .price .period{ color:var(--muted) }
+
+    .features{ padding:0 18px 8px; }
+    .features li{
+      list-style:none; margin:10px 0; display:flex; align-items:flex-start; gap:10px; color:#dbe6ff;
+    }
+    .features li span{ color:var(--muted) }
+    .check{
+      width:22px; height:22px; border-radius:6px; border:1px solid rgba(255,255,255,.18);
+      display:grid; place-items:center; flex:0 0 22px;
+    }
+    .check svg{ width:14px; height:14px }
+
+    .cta{
+      padding:18px;
+    }
+    .btn{
+      width:100%; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color:var(--text); font-weight:700; letter-spacing:.3px;
+      cursor:pointer; transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.3) }
+
+    /* Accent outlines per tier */
+    .silver{ outline:2px solid rgba(192,192,192,.2); }
+    .gold{ outline:2px solid rgba(212,175,55,.25); }
+    .diamond{ outline:2px solid rgba(108,212,255,.25); }
+    .platinum{ outline:2px solid rgba(229,228,226,.25); }
+
+    footer{ text-align:center; color:var(--muted); margin-top:34px; font-size:.9rem }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Choose Your Plan</h1>
+      <p class="subtitle">Simple, transparent pricing for Silver, Gold, Diamond, and Platinum tiers.</p>
+    </header>
+
+    <section class="grid" aria-label="Subscription plans">
+      <!-- Silver -->
+      <article class="card silver" aria-labelledby="silver-title">
+        <div class="tier-head">
+          <span class="badge" aria-hidden="true">SILVER</span>
+          <h2 class="tier-title" id="silver-title">Silver</h2>
+        </div>
+        <div class="price" aria-label="Price">
+          <div class="amount">₹299</div>
+          <div class="period">/ month</div>
+        </div>
+        <ul class="features">
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Basic access</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Standard support</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>5 projects</span></li>
+        </ul>
+        <div class="cta"><button class="btn" aria-label="Subscribe to Silver">Choose Silver</button></div>
+      </article>
+
+      <!-- Gold -->
+      <article class="card gold" aria-labelledby="gold-title">
+        <div class="tier-head">
+          <span class="badge" aria-hidden="true">GOLD</span>
+          <h2 class="tier-title" id="gold-title">Gold</h2>
+        </div>
+        <div class="price" aria-label="Price">
+          <div class="amount">₹599</div>
+          <div class="period">/ month</div>
+        </div>
+        <ul class="features">
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Everything in Silver</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Priority support</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>20 projects</span></li>
+        </ul>
+        <div class="cta"><button class="btn" aria-label="Subscribe to Gold">Choose Gold</button></div>
+      </article>
+
+      <!-- Diamond (Most Popular) -->
+      <article class="card diamond" aria-labelledby="diamond-title">
+        <div class="tier-head">
+          <span class="badge" aria-hidden="true">DIAMOND</span>
+          <h2 class="tier-title" id="diamond-title">Diamond</h2>
+        </div>
+        <div class="price" aria-label="Price">
+          <div class="amount">₹999</div>
+          <div class="period">/ month</div>
+        </div>
+        <ul class="features">
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Everything in Gold</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Unlimited projects</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Team collaboration</span></li>
+        </ul>
+        <div class="cta"><button class="btn" aria-label="Subscribe to Diamond">Choose Diamond</button></div>
+      </article>
+
+      <!-- Platinum -->
+      <article class="card platinum" aria-labelledby="platinum-title">
+        <div class="tier-head">
+          <span class="badge" aria-hidden="true">PLATINUM</span>
+          <h2 class="tier-title" id="platinum-title">Platinum</h2>
+        </div>
+        <div class="price" aria-label="Price">
+          <div class="amount">₹1,499</div>
+          <div class="period">/ month</div>
+        </div>
+        <ul class="features">
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Everything in Diamond</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>Dedicated account manager</span></li>
+          <li><div class="check"> 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div><span>24×7 premium support</span></li>
+        </ul>
+        <div class="cta"><button class="btn" aria-label="Subscribe to Platinum">Choose Platinum</button></div>
+      </article>
+    </section>
+
+    <footer>
+      Prices are examples. Replace with your actual plan details.
+    </footer>
+  </div>
+</body>
+</html>
