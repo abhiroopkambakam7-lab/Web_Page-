@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Subscription Plans – Silver, Gold, Diamond, Platinum</title>
   <style>
-    /* ====== Base & Theme ====== */
     :root{
       --bg: #0b0f1a;
       --card: #121829;
@@ -30,7 +29,6 @@
     }
     a{color:inherit}
 
-    /* ====== Layout ====== */
     .container{
       width:min(1100px, 92%);
       margin-inline:auto;
@@ -47,7 +45,6 @@
     }
     .subtitle{color:var(--muted); font-size:clamp(.95rem, .3vw + .8rem,1.05rem)}
 
-    /* ====== Grid ====== */
     .grid{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
@@ -60,7 +57,6 @@
       .grid{ grid-template-columns: 1fr; }
     }
 
-    /* ====== Card ====== */
     .card{
       position:relative;
       border-radius:20px;
@@ -126,7 +122,6 @@
     }
     .btn:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.3) }
 
-    /* Accent outlines per tier */
     .silver{ outline:2px solid rgba(192,192,192,.2); }
     .gold{ outline:2px solid rgba(212,175,55,.25); }
     .diamond{ outline:2px solid rgba(108,212,255,.25); }
@@ -143,7 +138,6 @@
     </header>
 
     <section class="grid" aria-label="Subscription plans">
-      <!-- Silver -->
       <article class="card silver" aria-labelledby="silver-title">
         <div class="tier-head">
           <span class="badge" aria-hidden="true">SILVER</span>
@@ -167,7 +161,6 @@
         <div class="cta"><button class="btn" aria-label="Subscribe to Silver">Choose Silver</button></div>
       </article>
 
-      <!-- Gold -->
       <article class="card gold" aria-labelledby="gold-title">
         <div class="tier-head">
           <span class="badge" aria-hidden="true">GOLD</span>
@@ -191,7 +184,6 @@
         <div class="cta"><button class="btn" aria-label="Subscribe to Gold">Choose Gold</button></div>
       </article>
 
-      <!-- Diamond (Most Popular) -->
       <article class="card diamond" aria-labelledby="diamond-title">
         <div class="tier-head">
           <span class="badge" aria-hidden="true">DIAMOND</span>
@@ -215,7 +207,6 @@
         <div class="cta"><button class="btn" aria-label="Subscribe to Diamond">Choose Diamond</button></div>
       </article>
 
-      <!-- Platinum -->
       <article class="card platinum" aria-labelledby="platinum-title">
         <div class="tier-head">
           <span class="badge" aria-hidden="true">PLATINUM</span>
